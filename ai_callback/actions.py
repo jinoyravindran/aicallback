@@ -30,7 +30,7 @@ def redact_abusive_language(response):
     """
     Replace abusive terms with [REDACTED].
     """
-    abusive_keywords = ["idiot", "stupid", "hate you", "dumb", "kill yourself"]
+    abusive_keywords = ["idiot", "stupid", "hate you", "dumb", "kill yourself" ,"hell"]
     censored_response = response
     for word in abusive_keywords:
         censored_response = censored_response.replace(word, "[REDACTED]")
@@ -94,3 +94,14 @@ def handle_incomplete_response(response):
     Append a note prompting for more detail or clarity if response is incomplete.
     """
     return response + "\n\n[Note: This response seems incomplete. Please clarify or retry the request.]"
+
+
+###################
+# TOXIC RESPONSE
+###################
+
+def redact_entire_text(response):
+    """
+    If detected as toxic, replace the entire response.
+    """
+    return "[REDACTED: Toxic content detected]"

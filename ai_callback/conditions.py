@@ -1,5 +1,10 @@
 # ai_callback/conditions.py
 import re
+from transformers import pipeline
+
+# Initialize the pipeline once at the module level (avoid re-initializing on each call)
+toxicity_model = pipeline("text-classification", model="unitary/toxic-bert")
+
 
 ###################
 # DISCLAIMER RULES
@@ -77,7 +82,7 @@ def detect_abuse(response):
     Example usage:
         detect_abuse("You are an idiot.")  # Returns: True
     """
-    abusive_keywords = ["idiot", "stupid", "hate you", "dumb", "kill yourself"]
+    abusive_keywords = ["idiot", "stupid", "hate you", "dumb", "kill yourself", "hell" ]
     text_lower = response.lower()
     return any(word in text_lower for word in abusive_keywords)
 
@@ -319,3 +324,29 @@ def detect_citation_needed(response: str) -> bool:
         r'scientists discovered'
     ]
     return any(bool(re.search(pattern, response, re.IGNORECASE)) for pattern in patterns)
+
+
+def detect_toxicity(response):
+    """
+    Identifies text that might be considered toxic or hateful using the 'unitary/toxic-bert' model.
+
+    Args:
+        response (str): The LLM-generated text to inspect.
+
+    Returns:
+        bool: True if toxic content is detected with a score above the threshold (e.g., 0.7), 
+              False otherwise.
+
+    Example usage:
+        >>> text = "You are worthless scum."
+        >>> detect_toxicity(text)
+        True
+    """
+    # This model typically returns a list of dicts, e.g.:
+    # [{'label': 'toxic', 'score': 0.85}] or [{'label': 'non-toxic', 'score': 0.98}]
+    results = toxicity_model(response)
+    # We decide that if any returned label is "toxic" and score > 0.7, it's considered toxic.
+    return any(
+        r["label"].lower() == "toxic" and r["score"] > 0.7
+        for r in results
+    )

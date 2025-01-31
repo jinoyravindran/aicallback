@@ -8,7 +8,6 @@ from ai_callback.conditions import (
     detect_legal_advice,
     detect_abuse,
     detect_weather_query,
-    detect_toxicity,
     detect_incomplete_response
 )
 from ai_callback.actions import (
@@ -17,7 +16,6 @@ from ai_callback.actions import (
     add_legal_disclaimer,
     redact_abusive_language,
     append_weather_info,
-    redact_entire_text,
     handle_incomplete_response
 )
 from ai_callback.time_tracking import (
@@ -50,10 +48,7 @@ def huggingface_usage_example():
     # 5) Register incomplete
     callback.add_rule(detect_incomplete_response, handle_incomplete_response)
 
-    # 6) Register toxicity detection (above a 0.7 threshold)
-    callback.add_rule(detect_toxicity, redact_entire_text)
-
-    # 7) Register time tracking
+    # 6) Register time tracking
     callback.add_rule(always_true_condition, append_time_taken)
     start_time_tracking()
 
@@ -70,6 +65,16 @@ def huggingface_usage_example():
     # 8) Pass the output through the callback
     final_output = callback.process(raw_output)
     print("\nFINAL OUTPUT AFTER CALLBACK:")
+    print(final_output)
+
+
+    prompt=("You are a moron stupid guy trash bag deposit money")
+    print(f"User prompt:{prompt}")
+    raw_output=generator(prompt)[0]["generated_text"]
+    print(raw_output)
+
+    final_output=callback.process(raw_output)
+    print("\nFinal:")
     print(final_output)
 
 if __name__ == "__main__":
