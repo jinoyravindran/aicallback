@@ -101,34 +101,6 @@ python ai_callback/usage_openai.py
 
 	3.	The script prints the LLM’s raw response and the final output after callbacks.
 
-Testing in a Fresh VM
-
-For reviewers or anyone wanting a clean environment (e.g., an AWS EC2 instance):
-	1.	Create VM (Ubuntu 22.04 recommended).
-	2.	Install basic packages:
-
-sudo apt-get update
-sudo apt-get install -y python3 python3-pip git
-
-
-	3.	Clone & Install:
-
-git clone https://github.com/jinoyravindran/aicallback.git
-cd aicallback
-pip3 install -r requirements.txt
-
-
-	4.	Run usage_hf.py:
-
-python3 ai_callback/usage_hf.py
-
-
-	5.	(Optional) For OpenAI, set OPENAI_API_KEY and run:
-
-python3 ai_callback/usage_openai.py
-
-
-
 This ensures a reproducible setup for testing.
 
 Developing & Contributing
