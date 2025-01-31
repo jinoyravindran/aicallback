@@ -8,6 +8,7 @@ from ai_callback.conditions import (
     detect_legal_advice,
     detect_abuse,
     detect_weather_query,
+    detect_toxicity,
     detect_incomplete_response
 )
 from ai_callback.actions import (
@@ -16,6 +17,7 @@ from ai_callback.actions import (
     add_legal_disclaimer,
     redact_abusive_language,
     append_weather_info,
+    redact_entire_text,
     handle_incomplete_response
 )
 from ai_callback.time_tracking import (
@@ -44,30 +46,19 @@ def huggingface_usage_example():
     # 4) Register abuse & weather
     callback.add_rule(detect_abuse, redact_abusive_language)
     callback.add_rule(detect_weather_query, append_weather_info)
+    
 
     # 5) Register incomplete
     callback.add_rule(detect_incomplete_response, handle_incomplete_response)
 
-    # 6) Register time tracking
+    # 6) Register toxicity detection (above a 0.7 threshold)
+    callback.add_rule(detect_toxicity, redact_entire_text)
+
+    # 7) Register time tracking
     callback.add_rule(always_true_condition, append_time_taken)
     start_time_tracking()
 
     # 7) Generate text from HF
-    prompt = (
-        "What's the climate in Berlin like right now? Also, can you provide me with medical advice on headaches?"
-    )
-    print(f"USER PROMPT: {prompt}")
-
-    raw_output = generator(prompt)[0]["generated_text"]
-    print("\nRAW LLM OUTPUT:")
-    print(raw_output)
-
-    # 8) Pass the output through the callback
-    final_output = callback.process(raw_output)
-    print("\nFINAL OUTPUT AFTER CALLBACK:")
-    print(final_output)
-
-
     prompt=("You are a moron stupid guy trash bag deposit money")
     print(f"User prompt:{prompt}")
     raw_output=generator(prompt)[0]["generated_text"]
