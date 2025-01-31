@@ -38,8 +38,8 @@
 ### 1. Clone this repository
 
 ```bash
-git clone https://github.com/jinoyravindran/ai-callback.git
-cd ai-callback
+git clone git clone https://github.com/jinoyravindran/aicallback.git
+cd aicallback
 
 2. Install dependencies
 
@@ -49,8 +49,9 @@ It’s recommended to use a virtual environment or conda environment to avoid po
 python3 -m venv venv
 source venv/bin/activate
 
+cd aicallback/
 # Install required packages
-pip install -r requirements.txt
+pip install -r ai_callback/requirements.txt
 
 (On Windows, activate via venv\Scripts\activate.)
 
@@ -79,8 +80,7 @@ Hugging Face (usage_hf.py)
 
 To run:
 
-cd ai_callback
-python usage_hf.py
+python ai_callback/usage_hf.py
 
 You’ll see the Raw Output from GPT-2 vs. the Processed Output after callbacks.
 
@@ -96,8 +96,7 @@ export OPENAI_API_KEY="sk-..."
 
 	2.	Then:
 
-cd ai_callback
-python usage_openai.py
+python ai_callback/usage_openai.py
 
 
 	3.	The script prints the LLM’s raw response and the final output after callbacks.
@@ -114,20 +113,19 @@ sudo apt-get install -y python3 python3-pip git
 
 	3.	Clone & Install:
 
-git clone https://github.com/jinoyravindran/ai-callback.git
-cd ai-callback
+git clone https://github.com/jinoyravindran/aicallback.git
+cd aicallback
 pip3 install -r requirements.txt
 
 
 	4.	Run usage_hf.py:
 
-cd ai_callback
-python3 usage_hf.py
+python3 ai_callback/usage_hf.py
 
 
 	5.	(Optional) For OpenAI, set OPENAI_API_KEY and run:
 
-python3 usage_openai.py
+python3 ai_callback/usage_openai.py
 
 
 
