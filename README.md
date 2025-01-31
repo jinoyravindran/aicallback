@@ -1,5 +1,3 @@
-Below is the complete README.md content in Markdown format. Copy and save it as a file named README.md in your repository root. Feel free to adjust any sections or links to fit your project’s specifics.
-
 # AI Callback
 
 **AI Callback** is a lightweight, framework-agnostic Python library that **post-processes** responses from Large Language Models (LLMs) using **modular condition–action callbacks**. This design enables developers to easily:
@@ -148,6 +146,3 @@ License
 This project is licensed under the MIT License. You’re free to use, modify, and distribute the code with attribution.
 
 Thank you for trying AI Callback. We hope it streamlines your LLM post-processing for safer, richer, and more compliant AI outputs!
-
-Save the above text as `README.md` in your repository’s root folder. Once committed, it will appear as the main documentation on your GitHub project page.
-
